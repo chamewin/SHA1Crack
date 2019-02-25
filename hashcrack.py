@@ -59,10 +59,10 @@ def brute_hash():
             elif hashlib.sha1(pw + concat).hexdigest() != sys.argv[1]:
                 count += 1
 
-            # If found is still False, then the code concatenates the salt plaintext to the front of the passwords.
-            # The code then hashes the combined plaintext and compare with the hash passed as the 1st
-            # argument (sys.argv[1]). If there is a match, print the password and the number of comparisons needed
-            # before finding a match.
+        # If found is still False, then the code concatenates the salt plaintext to the front of the passwords.
+        # The code then hashes the combined plaintext and compare with the hash passed as the 1st
+        # argument (sys.argv[1]). If there is a match, print the password and the number of comparisons needed
+        # before finding a match.
 
         if not found:
             for pw in pw_stream:
