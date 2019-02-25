@@ -48,29 +48,29 @@ def brute_hash():
             if hashlib.sha1(pw).hexdigest() == sys.argv[2]:
                 concat = str(pw)
 
-            # Concatenate the salt plaintext to the end of the passwords. Then, hash the combined plaintext and compare
-            # with the hash passed as the 1st argument (sys.argv[1]). If there is a match, print the password and the
-            # number of comparisons needed before finding a match.
+        # Concatenate the salt plaintext to the end of the passwords. Then, hash the combined plaintext and compare
+        # with the hash passed as the 1st argument (sys.argv[1]). If there is a match, print the password and the
+        # number of comparisons needed before finding a match.
 
-            for pw in pw_stream:
-                if hashlib.sha1(concat + pw).hexdigest() == sys.argv[1]:
-                    print("Password is " + str(pw) + ". Tries: " + str(count))
-                    found = True
-                elif hashlib.sha1(pw + concat).hexdigest() != sys.argv[1]:
-                    count += 1
+        for pw in pw_stream:
+            if hashlib.sha1(concat + pw).hexdigest() == sys.argv[1]:
+                print("Password is " + str(pw) + ". Tries: " + str(count))
+                found = True
+            elif hashlib.sha1(pw + concat).hexdigest() != sys.argv[1]:
+                count += 1
 
             # If found is still False, then the code concatenates the salt plaintext to the front of the passwords.
             # The code then hashes the combined plaintext and compare with the hash passed as the 1st
             # argument (sys.argv[1]). If there is a match, print the password and the number of comparisons needed
             # before finding a match.
 
-            if not found:
-                for pw in pw_stream:
-                    if hashlib.sha1(pw + concat).hexdigest() == sys.argv[1]:
-                        print("Password is " + str(pw) + ". Tries: " + str(count))
-                        found = True
-                    elif hashlib.sha1(pw + concat).hexdigest() != sys.argv[1]:
-                        count += 1
+        if not found:
+            for pw in pw_stream:
+                if hashlib.sha1(pw + concat).hexdigest() == sys.argv[1]:
+                    print("Password is " + str(pw) + ". Tries: " + str(count))
+                    found = True
+                elif hashlib.sha1(pw + concat).hexdigest() != sys.argv[1]:
+                    count += 1
 
     # If found is still False, then the password is likely not in the list used. Terminate the program.
 
