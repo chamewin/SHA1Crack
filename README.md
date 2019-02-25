@@ -46,6 +46,9 @@ C:\PATH-TO-PROJECT-FOLDER> python hashcrack.py ARG1 ARG2
 
 - ARG2 is the salt in a salted hash. Leave this blank if you know the hash is not salted.
 
+**Example**
+![alt text]()
+
 ## Hash Problems
 - **Testing program hash:** b7a875fc1ea228b9061041b7cec4bd3c52ab3ce3
 - **Medium hacker hash:** 801cdea58224c921c21fd2b183ff28ffa910ce31
