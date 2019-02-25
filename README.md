@@ -44,7 +44,8 @@ python hashcrack.py ARG1 ARG2
 **Windows:**
 
 ```
-C:\PATH-TO-PROJECT-FOLDER> python hashcrack.py ARG1 ARG2
+>cd C:\PATH-TO-PROJECT-FOLDER
+>python hashcrack.py ARG1 ARG2
 ```
 
 - ARG1 is the hash you are trying to crack.
