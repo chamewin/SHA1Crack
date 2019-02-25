@@ -37,6 +37,10 @@ python hashcrack.py ARG1 ARG2
 
 - ARG2 is the salt in a salted hash. Leave this blank if you know the hash is not salted.
 
+**Example**
+
+![alt text](https://github.com/chamewin/SHA1Crack/blob/master/images/ex_osx.PNG?raw=true)
+
 **Windows:**
 
 ```
