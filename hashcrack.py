@@ -18,45 +18,50 @@
 # Hint: The salt term here is: f0744d60dd500c92c0d37c16174cc58d3c4bdd8e
 # Answer: 'harib', attempts: 1546153
 
-import hashlib, urllib, time
+import hashlib, sys, time, urllib
 
 
 def brute_hash():
-    # Prompts the user for the desired hash to brute force (assuming user is trying to brute force a SHA1 hash)
-    hash = raw_input("Enter hash.\n> ")
-    # Prompts the user to enter the salt hash if known
-    salt = raw_input("Enter salt (If no salt, press enter again.)\n> ")
+
     # This is an array of passwords obtained by separating a list of passwords using newline as the delimiter
     pw_stream = str(urllib.urlopen('https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-'
                                    'Credentials/10-million-password-list-top-1000000.txt').read()).split()
 
     # 'count' variable of type Int used to keep track of the number of comparisons the program does
     count = 0
+
     # 'concat' variable of type String used to store the string form of the salt
     concat = ""
+
     # This code starts a timer. Its function is to keep track of the time it takes to brute force the hash.
     start = time.time()
+
     # If there is a salt, brute force the salt and store the string in 'concat' variable
-    if salt != "":
+    if len(sys.argv) == 3:
         for pw in pw_stream:
-            if hashlib.sha1(pw).hexdigest() == salt:
+            if hashlib.sha1(pw).hexdigest() == sys.argv[2]:
                 concat = str(pw)
+
     # This next section of code will concatenate what's stored in 'concat' variable, the reverse of the salt hash, to
-    # the front and the end of each password separately, and check to see if
+    # the front and the end of each password separately, and check to see if the ...
     for pw in pw_stream:
-        if hashlib.sha1(pw+concat).hexdigest() == hash:
+        if hashlib.sha1(pw+concat).hexdigest() == sys.argv[1]:
             end = time.time()
             print("Password is ", str(pw), "Tries: ", count, "Time: ", str(end-start))
             quit()
-        elif hashlib.sha1(pw+concat).hexdigest() != hash:
+        elif hashlib.sha1(pw+concat).hexdigest() != sys.argv[1]:
             count += 1
+
     for pw in pw_stream:
-        if hashlib.sha1(concat+pw).hexdigest() == hash:
+        if hashlib.sha1(concat+pw).hexdigest() == sys.argv[1]:
             end = time.time()
             print("Password is ", str(pw), "Tries: ", count, "Time: ", str(end-start))
             quit()
-        elif hashlib.sha1(pw+concat).hexdigest() != hash:
+        elif hashlib.sha1(pw+concat).hexdigest() != sys.argv[1]:
             count += 1
 
+def main():
+    brute_hash()
 
-brute_hash()
+
+main()
