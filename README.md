@@ -3,6 +3,8 @@
 SHA1Crack is a Python 2.7 program 
 for brute forcing a SHA1 hash.
 
+Made by **James Nguyen** for CSC 4980/6980 Blockchains and Applications course.
+
 ## Installation
 
 **OS X & Linux:**

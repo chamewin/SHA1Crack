@@ -2,66 +2,102 @@
 # CSC 4980/6980 Blockchains & Applications
 # Assignment 2
 # February 25, 2019
-# This program attempts to brute force SHA1 hashes by hashing each password and comparing it with the hash it is trying
-# to crack. This program also has the option to crack salted hashes if the salt is known. To find the salt's string,
-# the same process of brute forcing an unsalted hash is used on the salt to find its string. If found, the salt's
-# string will be concatenated to the front and the end of each password, hashed, and compared to the hash the program
-# is attempting to crack.
 #
-# Testing program hash: b7a875fc1ea228b9061041b7cec4bd3c52ab3ce3
-# Answer: 'letmein', attempts: 15
-#
-# Medium hacker hash: 801cdea58224c921c21fd2b183ff28ffa910ce31
-# Answer: 'vjhtrhsvdctcegth', attempts: 999967
-#
-# Leet hacker hash: ece4bb07f2580ed8b39aa52b7f7f918e43033ea1
-# Hint: The salt term here is: f0744d60dd500c92c0d37c16174cc58d3c4bdd8e
-# Answer: 'harib', attempts: 1546153
+# Purpose:
+# This program attempts to brute force SHA1 hashes by hashing each password and comparing it with the hash passed as
+# the 1st argument (sys.argv[1]). This program also has the option to crack salted hashes if the salt is known by first
+# finding the plaintext of the salt using a brute force method and concatenating the salt plaintext to each password
+# in the password list at the front of the password then at the end.
+
 
 import hashlib, sys, time, urllib
 
 
 def brute_hash():
 
-    # This is an array of passwords obtained by separating a list of passwords using newline as the delimiter
+    # Variables
+
+    count = 0  # This variable keeps track of the number of comparisons the program makes before finding the password.
+
+    concat = ""  # This variable stores the plaintext of the salt hash.
+
+    found = False  # This variable is used when checking to see if the password has been found yet.
+
+    # This is an array of passwords obtained by separating a list of passwords using newline as the delimiter.
+
     pw_stream = str(urllib.urlopen('https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-'
                                    'Credentials/10-million-password-list-top-1000000.txt').read()).split()
 
-    # 'count' variable of type Int used to keep track of the number of comparisons the program does
-    count = 0
+    # If there are 2 arguments passed, the hash is not salted and the following code will run. This code will hash each
+    # password in the password list and compare the hash with the hash passed as the 1st argument (sys.argv[1]).
 
-    # 'concat' variable of type String used to store the string form of the salt
-    concat = ""
+    if len(sys.argv) == 2:
+        for pw in pw_stream:
+            if hashlib.sha1(pw).hexdigest() == sys.argv[1]:
+                print("Password is " + str(pw) + ". Tries: " + str(count))
+                found = True
+            elif hashlib.sha1(pw).hexdigest() != sys.argv[1]:
+                count += 1
 
-    # This code starts a timer. Its function is to keep track of the time it takes to brute force the hash.
-    start = time.time()
+    # If there are 3 arguments passed, it means the hash is salted and the user provided a salt (in hash form). This
+    # code will hash each password in the password list and compare the hash with the salt hash passed as the 2nd
+    # argument (sys.argv[2]). If a match is found, store the salt plaintext in concat variable.
 
-    # If there is a salt, brute force the salt and store the string in 'concat' variable
     if len(sys.argv) == 3:
         for pw in pw_stream:
             if hashlib.sha1(pw).hexdigest() == sys.argv[2]:
                 concat = str(pw)
 
-    # This next section of code will concatenate what's stored in 'concat' variable, the reverse of the salt hash, to
-    # the front and the end of each password separately, and check to see if the ...
-    for pw in pw_stream:
-        if hashlib.sha1(pw+concat).hexdigest() == sys.argv[1]:
-            end = time.time()
-            print("Password is ", str(pw), "Tries: ", count, "Time: ", str(end-start))
-            quit()
-        elif hashlib.sha1(pw+concat).hexdigest() != sys.argv[1]:
-            count += 1
+            # Concatenate the salt plaintext to the end of the passwords. Then, hash the combined plaintext and compare
+            # with the hash passed as the 1st argument (sys.argv[1]). If there is a match, print the password and the
+            # number of comparisons needed before finding a match.
 
-    for pw in pw_stream:
-        if hashlib.sha1(concat+pw).hexdigest() == sys.argv[1]:
-            end = time.time()
-            print("Password is ", str(pw), "Tries: ", count, "Time: ", str(end-start))
-            quit()
-        elif hashlib.sha1(pw+concat).hexdigest() != sys.argv[1]:
-            count += 1
+            for pw in pw_stream:
+                if hashlib.sha1(concat + pw).hexdigest() == sys.argv[1]:
+                    print("Password is " + str(pw) + ". Tries: " + str(count))
+                    found = True
+                elif hashlib.sha1(pw + concat).hexdigest() != sys.argv[1]:
+                    count += 1
+
+            # If found is still False, then the code concatenates the salt plaintext to the front of the passwords.
+            # The code then hashes the combined plaintext and compare with the hash passed as the 1st
+            # argument (sys.argv[1]). If there is a match, print the password and the number of comparisons needed
+            # before finding a match.
+
+            if not found:
+                for pw in pw_stream:
+                    if hashlib.sha1(pw + concat).hexdigest() == sys.argv[1]:
+                        print("Password is " + str(pw) + ". Tries: " + str(count))
+                        found = True
+                    elif hashlib.sha1(pw + concat).hexdigest() != sys.argv[1]:
+                        count += 1
+
+    # If found is still False, then the password is likely not in the list used. Terminate the program.
+
+    if not found:
+        print("Password is not in this list. Please try another.")
+        quit()
+
 
 def main():
+
+    # This marks the time the program starts
+
+    start = time.time()
+
+    # If there are less than 2 or more than 3 arguments passed, then print error message and terminate program.
+
+    if len(sys.argv) != 2 and len(sys.argv) != 3:
+        print("Please enter a valid number of arguments")
+        quit()
+
+    # Calls the user-defined function brute_hash
+
     brute_hash()
+
+    # Prints the how long the program ran for. Current time - start time.
+
+    print("Program ran for " + str(time.time() - start) + " seconds")
 
 
 main()
