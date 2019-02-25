@@ -29,6 +29,7 @@ Go [here](http://timmyreilly.azurewebsites.net/python-pip-virtualenv-installatio
 **OS X & Linux:**
 
 ```bash
+cd ~/PATH-TO-PROJECT-FOLDER
 python hashcrack.py ARG1 ARG2
 ```
 
