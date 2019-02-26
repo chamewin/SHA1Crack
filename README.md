@@ -48,6 +48,10 @@ python hashcrack.py ARG1 ARG2
 >python hashcrack.py ARG1 ARG2
 ```
 
+```
+>cd C:\PATH-TO-PROJECT-FOLDER
+>python improvedcrack.py ARG1 ARG2
+```
 - ARG1 is the hash you are trying to crack.
 
 - ARG2 is the salt in a salted hash. Leave this blank if you know the hash is not salted.
