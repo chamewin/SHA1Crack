@@ -93,10 +93,6 @@ def brute_hash():
 
 def main():
 
-    # This marks the time the program starts
-
-    start = time.time()
-
     # If there are less than 2 or more than 3 arguments passed, then print error message and terminate program.
 
     if len(sys.argv) != 2 and len(sys.argv) != 3:
@@ -107,9 +103,13 @@ def main():
 
     brute_hash()
 
-    # Prints the how long the program ran for. Current time - start time.
 
-    print("Program ran for " + str(time.time() - start) + " seconds")
+# This marks the time the program starts
 
+start = time.time()
 
 main()
+
+# Prints the how long the program ran for. Current time - start time.
+
+print("--- %s seconds ---" %(time.time() - start))
