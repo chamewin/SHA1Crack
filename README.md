@@ -56,7 +56,7 @@ python hashcrack.py ARG1 ARG2
 
 ![alt text](https://raw.githubusercontent.com/chamewin/SHA1Crack/master/images/ex_win10.PNG)
 
-**Example for improved program (after vs before)**
+**Example for improved program (improvedcrack.py) vs old (hashcrack.py)**
 
 ![alt text](https://github.com/chamewin/SHA1Crack/blob/master/images/improvedcrack.PNG?raw=true)
 
