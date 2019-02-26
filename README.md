@@ -66,11 +66,8 @@ python hashcrack.py ARG1 ARG2
 - **Leet hacker hash:** ece4bb07f2580ed8b39aa52b7f7f918e43033ea1
 
      _Hint (Salt term): f0744d60dd500c92c0d37c16174cc58d3c4bdd8e_
-- **Graduate student:** 34302959e138917ce9339c0b30ec50e650ce6b40
 
-    _Hint: This hash constitutes two terms separated by one space_
 ## Answer to Hash Problems
 - **Testing program hash:** letmein
 - **Medium hacker hash:** vjhtrhsvdctcegth
 - **Leet hacker hash:** harib
-- **Graduate student:** 
