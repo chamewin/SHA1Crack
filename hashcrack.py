@@ -39,6 +39,18 @@ def brute_hash():
             elif hashlib.sha1(pw).hexdigest() != sys.argv[1]:
                 count += 1
 
+        # Graduate student hash. This takes 4 days to compute. Need to use something other than an array to increase
+        # performance.
+        if not found:
+            # Reset the count to compute the graduate student hash.
+            count = 0
+            for pw in pw_stream:
+                for pw2 in pw_stream:
+                    if hashlib.sha1(pw + " " + pw2).hexdigest() == sys.argv[1]:
+                        print("Password is " + str(pw + " " + pw2) + ". Tries: " + str(count))
+                    elif hashlib.sha1(pw + " " + pw2).hexdigest() != sys.argv[1]:
+                        count += 1
+
     # If there are 3 arguments passed, it means the hash is salted and the user provided a salt (in hash form). This
     # code will hash each password in the password list and compare the hash with the salt hash passed as the 2nd
     # argument (sys.argv[2]). If a match is found, store the salt plaintext in concat variable.
