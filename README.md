@@ -76,6 +76,6 @@ python hashcrack.py ARG1 ARG2
 - **Medium hacker hash:** vjhtrhsvdctcegth
 - **Leet hacker hash:** harib
 
-**Solution Example**
+**Improved Solution Example**
 
 ![alt text](https://github.com/chamewin/SHA1Crack/blob/master/images/solution_improved.PNG?raw=true)
