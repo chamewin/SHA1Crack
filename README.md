@@ -56,9 +56,10 @@ python hashcrack.py ARG1 ARG2
 
 ![alt text](https://raw.githubusercontent.com/chamewin/SHA1Crack/master/images/ex_win10.PNG)
 
-** Example for improved program **
+**Example for improved program (after vs before)**
 
-![alt text]()
+![alt text](https://github.com/chamewin/SHA1Crack/blob/master/images/improvedcrack.PNG?raw=true)
+
 ## Hash Problems
 - **Testing program hash:** b7a875fc1ea228b9061041b7cec4bd3c52ab3ce3
 - **Medium hacker hash:** 801cdea58224c921c21fd2b183ff28ffa910ce31
